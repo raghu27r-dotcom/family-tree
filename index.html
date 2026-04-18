@@ -6,10 +6,10 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url('bg.jpg');
+            background-image: url('bgk.jpg');
             background-size: cover;    
             background-position: center;
-            background-attachment: fixed; 
+            background-attachment: scroll; 
             margin: 0;
             padding: 80px 20px;
             display: flex;
@@ -18,7 +18,7 @@
         }
 
         h1 {
-            color: #2c3e50;
+            color: #000;
             margin-bottom: 50px;
             background: rgba(255, 255, 255, 0.85);
             padding: 15px 30px;
@@ -48,14 +48,14 @@
             position: absolute;
             top: 0; 
             right: 50%;
-            border-top: 3px solid #000;
+            border-top: 3px solid #3498db;
             width: 50%; 
             height: 40px; /* Lengthened vertical drop */
         }
         .tree-container li::after {
             right: auto; 
             left: 50%;
-            border-left: 3px solid #000;
+            border-left: 3px solid #3498db;
         }
 
         /* Logic for edges and single children */
@@ -65,7 +65,7 @@
         .tree-container li:only-child { padding-top: 0; }
         
         .tree-container li:first-child::after { border-radius: 12px 0 0 0; }
-        .tree-container li:last-child::before { border-right: 3px solid #000; border-radius: 0 12px 0 0; }
+        .tree-container li:last-child::before { border-right: 3px solid #3498db; border-radius: 0 12px 0 0; }
         .tree-container li:first-child::before, .tree-container li:last-child::after { border: 0 none; }
 
         /* Vertical Connector from Parent */
@@ -74,7 +74,7 @@
             position: absolute; 
             top: 0; 
             left: 50%;
-            border-left: 3px solid #000;
+            border-left: 3px solid #3498db;
             width: 0; 
             height: 40px; /* Lengthened vertical drop */
         }
@@ -108,11 +108,15 @@
             background: #f0f0f0;
             border: 2px solid #eee;
         }
+        .member-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
 
         .name { 
             font-weight: bold; 
             font-size: 18px; /* Larger font */
-            color: #2c3e50; 
+            color: #ffffff; 
         }
 
         /* --- MODAL / POP-UP STYLES --- */
@@ -176,7 +180,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="member-card" data-name="Raja & Sanjia" data-dob="DOB: 11/01/1997 & 1997" data-marr="Married: 18/05/2025" data-img="raja.jpg">
+                                <div class="member-card" data-name="Raja & Sanjeeya" data-dob="DOB: 11/01/1997 & 1997" data-marr="Married: 18/05/2025" data-img="raja.jpg">
                                     <img src="raja.jpg" alt="raja">
                                     <div class="name">Raja & Sanjeeya</div>
                                 </div>
