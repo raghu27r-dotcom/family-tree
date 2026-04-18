@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Chozhagar Family Tree</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-image: url('bg.jpg');
+            background-size: cover;    
+            background-position: center;
+            background-attachment: fixed; 
+            margin: 0;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        /* --- THE TREE CONNECTOR LOGIC --- */
+        .tree-container ul {
+            padding-top: 20px; 
+            position: relative;
+            display: flex;
+            justify-content: center;
+            padding-left: 0;
+        }
+
+        .tree-container li {
+            text-align: center;
+            list-style-type: none;
+            position: relative;
+            padding: 20px 5px 0 5px;
+        }
+
+        /* Horizontal Lines - Now 3px Black */
+        .tree-container li::before, .tree-container li::after {
+            content: '';
+            position: absolute;
+            top: 0; 
+            right: 50%;
+            border-top: 3px solid #000;
+            width: 50%; 
+            height: 20px;
+        }
+        .tree-container li::after {
+            right: auto; 
+            left: 50%;
+            border-left: 3px solid #000;
+        }
+
+        /* Logic for edges and single children */
+        .tree-container li:only-child::after, .tree-container li:only-child::before {
+            display: none;
+        }
+        .tree-container li:only-child { padding-top: 0; }
+        
+        /* Rounded corners for the horizontal connections */
+        .tree-container li:first-child::after { border-radius: 8px 0 0 0; }
+        .tree-container li:last-child::before { border-right: 3px solid #000; border-radius: 0 8px 0 0; }
+        .tree-container li:first-child::before, .tree-container li:last-child::after { border: 0 none; }
+
+        /* Vertical Connector from Parent - Now 3px Black */
+        .tree-container ul ul::before {
+            content: '';
+            position: absolute; 
+            top: 0; 
+            left: 50%;
+            border-left: 3px solid #000;
+            width: 0; 
+            height: 20px;
+        }
+
+        /* --- PHOTO CARDS --- */
+        .member-card {
+            border: 2px solid #3498db;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            display: inline-block;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .member-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 8px auto;
+            background: #eee;
+        }
+
+        .name { font-weight: bold; font-size: 14px; color: #2c3e50; }
+
+        
+        .tree-container > ul > li > .member-card::before {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>The Chozhagar Family Tree</h1>
+    
+    <div class="tree-container">
+        <ul>
+            <li>
+                <div class="member-card">
+                    <img src="appaye.jpg" alt="Appaye">
+                    <div class="name">Aylambal Annasamy Chozhagar</div>
+                </div>
+                <ul>
+                    <li>
+                        <div class="member-card">
+                            <img src="dadmom.jpg" alt="AppaAmma">
+                            <div class="name">Rajendran & Thangam</div>
+                        </div>
+                        <ul>
+                            <li>
+                                <div class="member-card">
+                                    <img src="raghu.jpg" alt="raghu">
+                                    <div class="name">Raghu & Anu</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="member-card">
+                                    <img src="raja.jpg" alt="raja">
+                                    <div class="name">Raja & Sanjia</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>
