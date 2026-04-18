@@ -12,80 +12,102 @@
             background-position: center;
             background-attachment: fixed; 
             margin: 0;
-            padding: 40px 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 40px 0;
             min-height: 100vh;
+            text-align: center;
         }
 
         h1 {
+            display: inline-block;
             color: #000;
-            margin-bottom: 30px;
+            margin-bottom: 50px;
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(5px);
             padding: 10px 20px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            text-align: center;
             font-size: 1.5rem;
         }
 
-        /* --- MOBILE SCROLLING CONTAINER --- */
-        .tree-container {
+        /* --- THE FIXED SCROLLING CONTAINER --- */
+        .tree-outer {
             width: 100%;
-            overflow-x: auto; /* Allows side-to-side swipe */
+            overflow-x: auto;
             overflow-y: hidden;
-            padding-bottom: 50px;
-            cursor: grab;
-            -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+            padding: 20px;
+            -webkit-overflow-scrolling: touch;
         }
 
-        /* Ensures the tree stays in one long line horizontally */
-        .tree-container ul {
-            padding-top: 40px; 
+        .tree {
+            display: inline-block; /* Essential for lines to stay connected */
+            white-space: nowrap;   /* Keeps family on one horizontal plane */
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .tree ul {
+            padding-top: 20px; 
             position: relative;
-            display: flex;
+            transition: all 0.5s;
+            display: flex; /* Flex here helps children align but keep tree logic */
             justify-content: center;
             padding-left: 0;
-            margin: 0;
-            white-space: nowrap; 
         }
 
-        .tree-container li {
+        .tree li {
+            float: left; 
             text-align: center;
             list-style-type: none;
             position: relative;
-            padding: 40px 15px 0 15px; /* Slightly tighter for mobile */
+            padding: 20px 10px 0 10px;
             transition: all 0.5s;
         }
 
-        /* Horizontal Lines */
-        .tree-container li::before, .tree-container li::after {
+        /* --- CONNECTOR LINES LOGIC --- */
+        /* Vertical line from parent */
+        .tree li::before, .tree li::after {
             content: '';
-            position: absolute;
-            top: 0; right: 50%;
-            border-top: 3px solid #3498db;
-            width: 50%; height: 40px;
+            position: absolute; 
+            top: 0; 
+            right: 50%;
+            border-top: 2px solid #3498db;
+            width: 50%; 
+            height: 20px;
         }
-        .tree-container li::after {
-            right: auto; left: 50%;
-            border-left: 3px solid #3498db;
+        .tree li::after {
+            right: auto; 
+            left: 50%;
+            border-left: 2px solid #3498db;
         }
 
-        .tree-container li:only-child::after, .tree-container li:only-child::before {
+        /* Remove lines from single children */
+        .tree li:only-child::after, .tree li:only-child::before {
             display: none;
         }
-        .tree-container li:only-child { padding-top: 0; }
-        .tree-container li:first-child::after { border-radius: 12px 0 0 0; }
-        .tree-container li:last-child::before { border-right: 3px solid #3498db; border-radius: 0 12px 0 0; }
-        .tree-container li:first-child::before, .tree-container li:last-child::after { border: 0 none; }
+        .tree li:only-child { padding-top: 0; }
 
-        .tree-container ul ul::before {
+        /* Remove "outer" lines from first and last children */
+        .tree li:first-child::before, .tree li:last-child::after {
+            border: 0 none;
+        }
+        /* Add border back to last child to close the gap */
+        .tree li:last-child::before {
+            border-right: 2px solid #3498db;
+            border-radius: 0 5px 0 0;
+        }
+        .tree li:first-child::after {
+            border-radius: 5px 0 0 0;
+        }
+
+        /* Vertical line to children */
+        .tree ul ul::before {
             content: '';
-            position: absolute; top: 0; left: 50%;
-            border-left: 3px solid #3498db;
-            width: 0; height: 40px;
+            position: absolute; 
+            top: 0; 
+            left: 50%;
+            border-left: 2px solid #3498db;
+            width: 0; 
+            height: 20px;
         }
 
         /* --- GLASSY MEMBER CARDS --- */
@@ -94,144 +116,113 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 15px;
-            border-radius: 15px;
+            padding: 12px;
+            border-radius: 12px;
             display: inline-block;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 10;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 200px; /* Scaled down slightly for better mobile fit */
+            width: 160px; /* Slimmer cards for better mobile fitting */
+            white-space: normal; /* Allows text to wrap inside the card */
+            transition: 0.3s;
         }
         
         .member-card:hover { 
-            transform: translateY(-5px) scale(1.02);
+            transform: translateY(-5px);
             background: rgba(255, 255, 255, 0.25);
         }
         
         .member-card img {
-            width: 170px; 
-            height: 170px; 
+            width: 130px; 
+            height: 130px; 
             border-radius: 50%;
             object-fit: cover;
-            display: block;
-            margin: 0 auto 10px auto;
-            background: rgba(240, 240, 240, 0.2);
+            margin-bottom: 10px;
             border: 2px solid rgba(255, 255, 255, 0.5);
         }
 
         .name { 
             font-weight: bold; 
-            font-size: 16px; 
+            font-size: 14px; 
             color: #ffffff; 
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-            white-space: normal; /* Allows name to wrap inside card */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
-        /* --- GLASSY MODAL STYLES --- */
+        /* --- MODAL --- */
         .modal {
             display: none;
             position: fixed;
             z-index: 1000;
             left: 0; top: 0;
             width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.85);
+            background: rgba(0,0,0,0.8);
         }
         .modal-content {
             background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            margin: 15% auto;
-            padding: 30px;
-            width: 80%; /* responsive width */
-            max-width: 350px;
-            border-radius: 25px;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            animation: fadeIn 0.4s ease-out;
+            backdrop-filter: blur(15px);
+            margin: 20% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 300px;
+            border-radius: 20px;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .close-btn {
-            position: absolute;
-            right: 15px; top: 10px;
-            font-size: 30px;
-            color: #fff;
-            cursor: pointer;
-        }
-        
-        #modal-img { width: 140px; height: 140px; border-radius: 50%; border: 4px solid #3498db; margin-bottom: 15px; object-fit: cover; }
-        #modal-name-text { font-size: 22px; margin-bottom: 10px; color: #fff; text-shadow: 1px 1px 5px rgba(0,0,0,0.7); }
-        .modal-details { font-size: 16px; color: #f1f1f1; margin: 8px 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); }
-
-        /* Hide scrollbar for clean look but keep functionality */
-        .tree-container::-webkit-scrollbar {
-            height: 8px;
-        }
-        .tree-container::-webkit-scrollbar-thumb {
-            background: rgba(52, 152, 219, 0.5);
-            border-radius: 10px;
-        }
+        .close-btn { float: right; cursor: pointer; font-size: 24px; }
+        #modal-img { width: 100px; height: 100px; border-radius: 50%; border: 2px solid #3498db; }
     </style>
 </head>
 <body>
 
     <h1>The Chozhagar Family Tree</h1>
     
-    <div class="tree-container">
-        <ul>
-            <li>
-                <div class="member-card" data-name="Aylambal Annasamy Chozhagar" data-dob="Born: 1947" data-marr="Married: 1967" data-img="appaye.jpg">
-                    <img src="appaye.jpg" alt="Appaye">
-                    <div class="name">Aylambal Annasamy Chozhagar</div>
-                </div>
-                <ul>
-                    <li>
-                        <div class="member-card" data-name="Rajendran & Thangam" data-dob="DOB: 04/05/1968 & 11/10/1969" data-marr="Married: 12/06/1994" data-img="dadmom.jpg">
-                            <img src="dadmom.jpg" alt="AppaAmma">
-                            <div class="name">Rajendran & Thangam</div>
-                        </div>
-                        <ul>
-                            <li>
-                                <div class="member-card" data-name="Raghu & Anu" data-dob="DOB: 15/04/1995 & 16/02/1996" data-marr="Married: 08/09/2024" data-img="raghu.jpg">
-                                    <img src="raghu.jpg" alt="raghu">
-                                    <div class="name">Raghu & Anu</div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="member-card" data-name="Raja & Sanjeeya" data-dob="DOB: 11/01/1997 & 1997" data-marr="Married: 18/05/2025" data-img="raja.jpg">
-                                    <img src="raja.jpg" alt="raja">
-                                    <div class="name">Raja & Sanjeeya</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+    <div class="tree-outer">
+        <div class="tree">
+            <ul>
+                <li>
+                    <div class="member-card" data-name="Aylambal Annasamy Chozhagar" data-dob="Born: 1947" data-marr="Married: 1967" data-img="appaye.jpg">
+                        <img src="appaye.jpg">
+                        <div class="name">Aylambal Annasamy Chozhagar</div>
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="member-card" data-name="Rajendran & Thangam" data-dob="DOB: 04/05/1968 & 11/10/1969" data-marr="Married: 12/06/1994" data-img="dadmom.jpg">
+                                <img src="dadmom.jpg">
+                                <div class="name">Rajendran & Thangam</div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="member-card" data-name="Raghu & Anu" data-dob="DOB: 15/04/1995 & 16/02/1996" data-marr="Married: 08/09/2024" data-img="raghu.jpg">
+                                        <img src="raghu.jpg">
+                                        <div class="name">Raghu & Anu</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="member-card" data-name="Raja & Sanjeeya" data-dob="DOB: 11/01/1997 & 1997" data-marr="Married: 18/05/2025" data-img="raja.jpg">
+                                        <img src="raja.jpg">
+                                        <div class="name">Raja & Sanjeeya</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 
-    <!-- Modal Box -->
     <div id="infoModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn">&times;</span>
+            <span class="close-btn" onclick="closeModal()">&times;</span>
             <img id="modal-img" src="">
             <h3 id="modal-name-text"></h3>
-            <p id="modal-dob-text" class="modal-details"></p>
-            <p id="modal-marr-text" class="modal-details"></p>
+            <p id="modal-dob-text"></p>
+            <p id="modal-marr-text"></p>
         </div>
     </div>
 
     <script>
         const modal = document.getElementById("infoModal");
-        const closeBtn = document.querySelector(".close-btn");
 
         document.querySelectorAll('.member-card').forEach(card => {
             card.addEventListener('click', function() {
@@ -243,8 +234,8 @@
             });
         });
 
-        closeBtn.onclick = () => modal.style.display = "none";
-        window.onclick = (event) => { if (event.target == modal) modal.style.display = "none"; }
+        function closeModal() { modal.style.display = "none"; }
+        window.onclick = (event) => { if (event.target == modal) closeModal(); }
     </script>
 
 </body>
