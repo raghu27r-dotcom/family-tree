@@ -5,13 +5,13 @@
     <title>The Chozhagar Family Tree</title>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-image: url('bg.jpg');
             background-size: cover;    
             background-position: center;
             background-attachment: fixed; 
             margin: 0;
-            padding: 50px;
+            padding: 80px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -19,15 +19,16 @@
 
         h1 {
             color: #2c3e50;
-            margin-bottom: 30px;
-            background: rgba(255, 255, 255, 0.7);
-            padding: 10px 20px;
-            border-radius: 10px;
+            margin-bottom: 50px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 15px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         /* --- TREE CONNECTOR LOGIC --- */
         .tree-container ul {
-            padding-top: 20px; 
+            padding-top: 40px; 
             position: relative;
             display: flex;
             justify-content: center;
@@ -38,10 +39,10 @@
             text-align: center;
             list-style-type: none;
             position: relative;
-            padding: 20px 5px 0 5px;
+            padding: 40px 30px 0 30px; /* Increased side padding to spread cards out */
         }
 
-        /* Horizontal Lines - 3px Black */
+        /* Horizontal Lines */
         .tree-container li::before, .tree-container li::after {
             content: '';
             position: absolute;
@@ -49,7 +50,7 @@
             right: 50%;
             border-top: 3px solid #000;
             width: 50%; 
-            height: 20px;
+            height: 40px; /* Lengthened vertical drop */
         }
         .tree-container li::after {
             right: auto; 
@@ -63,8 +64,8 @@
         }
         .tree-container li:only-child { padding-top: 0; }
         
-        .tree-container li:first-child::after { border-radius: 8px 0 0 0; }
-        .tree-container li:last-child::before { border-right: 3px solid #000; border-radius: 0 8px 0 0; }
+        .tree-container li:first-child::after { border-radius: 12px 0 0 0; }
+        .tree-container li:last-child::before { border-right: 3px solid #000; border-radius: 0 12px 0 0; }
         .tree-container li:first-child::before, .tree-container li:last-child::after { border: 0 none; }
 
         /* Vertical Connector from Parent */
@@ -75,62 +76,79 @@
             left: 50%;
             border-left: 3px solid #000;
             width: 0; 
-            height: 20px;
+            height: 40px; /* Lengthened vertical drop */
         }
 
-        /* --- PHOTO CARDS --- */
+        /* --- ENLARGED PHOTO CARDS --- */
         .member-card {
-            border: 2px solid #3498db;
-            padding: 10px;
+            border: 3px solid #3498db;
+            padding: 20px;
             background: white;
-            border-radius: 8px;
+            border-radius: 15px;
             display: inline-block;
-            box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             position: relative;
             z-index: 10;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.3s ease;
+            width: 240px; /* Increased card width */
         }
-        .member-card:hover { transform: scale(1.05); }
+        .member-card:hover { 
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
         
         .member-card img {
-            width: 150px;
-            height: 150px;
+            width: 210px;  /* Increased from 150px */
+            height: 210px; /* Increased from 150px */
             border-radius: 50%;
             object-fit: cover;
             display: block;
-            margin: 0 auto 8px auto;
-            background: #eee;
+            margin: 0 auto 15px auto;
+            background: #f0f0f0;
+            border: 2px solid #eee;
         }
 
-        .name { font-weight: bold; font-size: 14px; color: #2c3e50; }
+        .name { 
+            font-weight: bold; 
+            font-size: 18px; /* Larger font */
+            color: #2c3e50; 
+        }
 
         /* --- MODAL / POP-UP STYLES --- */
         .modal {
             display: none;
             position: fixed;
-            z-index: 100;
+            z-index: 1000;
             left: 0; top: 0;
             width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.7);
+            background-color: rgba(0,0,0,0.8);
         }
         .modal-content {
             background-color: white;
-            margin: 10% auto;
-            padding: 25px;
-            width: 300px;
-            border-radius: 15px;
+            margin: 5% auto;
+            padding: 40px;
+            width: 350px;
+            border-radius: 20px;
             text-align: center;
             position: relative;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .close-btn {
             position: absolute;
-            right: 15px; top: 10px;
-            font-size: 24px;
+            right: 20px; top: 15px;
+            font-size: 30px;
             cursor: pointer;
-            color: #666;
+            color: #999;
         }
-        #modal-img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #3498db; margin-bottom: 15px; }
+        .close-btn:hover { color: #333; }
+        #modal-img { width: 150px; height: 150px; border-radius: 50%; border: 4px solid #3498db; margin-bottom: 20px; object-fit: cover; }
+        #modal-name-text { font-size: 24px; margin-bottom: 10px; color: #2c3e50; }
+        .modal-details { font-size: 16px; color: #7f8c8d; margin: 5px 0; }
     </style>
 </head>
 <body>
@@ -176,8 +194,8 @@
             <span class="close-btn">&times;</span>
             <img id="modal-img" src="">
             <h3 id="modal-name-text"></h3>
-            <p id="modal-dob-text"></p>
-            <p id="modal-marr-text"></p>
+            <p id="modal-dob-text" class="modal-details"></p>
+            <p id="modal-marr-text" class="modal-details"></p>
         </div>
     </div>
 
